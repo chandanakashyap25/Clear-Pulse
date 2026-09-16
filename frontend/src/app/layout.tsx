@@ -1,0 +1,34 @@
+import type { Metadata } from 'next';
+import './globals.css';
+import { ClerkProvider } from '@clerk/nextjs';
+import Navbar from '@/components/Navbar';
+
+const clerkPublishableKey =
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
+  'pk_test_cHJvbW90ZWQtcmVkZmlzaC04MC5jbGVyay5hY2NvdW50cy5kZXYk';
+
+export const metadata: Metadata = {
+  title: 'MediChain AI — Decentralized Healthcare Intelligence',
+  description: 'AI-powered blockchain-secured medical record platform with intelligent analysis, chatbot, and AI doctor avatar.',
+  keywords: ['medical records', 'blockchain', 'AI analysis', 'healthcare', 'decentralized', 'Web3'],
+  openGraph: {
+    title: 'MediChain AI — Decentralized Healthcare Intelligence',
+    description: 'Upload medical reports, get AI analysis, and secure records on blockchain.',
+    type: 'website',
+  },
+  robots: 'index, follow',
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <ClerkProvider publishableKey={clerkPublishableKey}>
+      <html lang="en" suppressHydrationWarning>
+        <body>
+          <div className="bg-mesh" aria-hidden="true" />
+          <Navbar />
+          <main>{children}</main>
+        </body>
+      </html>
+    </ClerkProvider>
+  );
+}
